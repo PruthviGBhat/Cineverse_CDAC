@@ -157,17 +157,15 @@ export default function MovieDetails() {
         {/* Book Tickets Button */}
         <div className=" flex  bottom-0 bg-white shadow-lg border-t border-gray-200 p-4 -mx-4 md:-mx-8">
           <div className="w-50 mx-auto">
-            <button className="w-full hover:cursor-pointer bg-red-600 hover:bg-red-700 text-white py-4 rounded-lg font-bold text-lg transition-colors">
+            <Link to="/Booking" className="w-full hover:cursor-pointer px-10 bg-red-600 hover:bg-red-700 text-white py-4 rounded-lg font-bold text-lg transition-colors">
               Book Tickets
-            </button>
+            </Link>
           </div>
           <div className="w-50 mx-auto">
-            {/* <Link to="/" className="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-lg font-bold text-lg transition-colors">
+            <Link to="/" className="w-full bg-red-600 hover:bg-red-700 text-white py-4 px-10 rounded-lg font-bold text-lg transition-colors">
               Back to Home
-            </Link> */}
-             <button className="w-full hover:cursor-pointer bg-red-600 hover:bg-red-700 text-white py-4 rounded-lg font-bold text-lg transition-colors">
-              Back to Home
-            </button>
+            </Link>
+           
           </div>
 
         </div>

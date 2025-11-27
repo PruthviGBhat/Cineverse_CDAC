@@ -9,6 +9,9 @@ import Carousel from './Carousel.jsx'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import MovieDetails from './MovieDetails.jsx'
 import Footer from './Footer.jsx'
+import Login from './Login.jsx'
+import Booking from './Booking.jsx'
+import Confirmation from './Confirmation.jsx'
 
 function App() {
   
@@ -16,6 +19,7 @@ function App() {
   return (
     <>
     <Navbar />
+    {/* <Login /> */}
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<> 
@@ -24,7 +28,9 @@ function App() {
             <CardComponent />
           </>} />
           <Route path='/MovieDetails' element={<MovieDetails />} />
+          <Route path='/Booking' element={<Booking />} />
           <Route path='*' element={<NotFound />} />
+          <Route path='/Confirmation' element={<Confirmation />} />
         </Routes>
       </BrowserRouter>
       <Footer />
