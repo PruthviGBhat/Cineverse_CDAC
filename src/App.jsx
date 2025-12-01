@@ -1,14 +1,15 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Navbar from './Navbar.jsx'
-import Footer from './Footer.jsx'
-import Login from './Login.jsx'
-import Carousel from './Carousel.jsx'
-import CardComponent from './CardComponent.jsx'
-import MovieDetails from './MovieDetails.jsx'
-import Booking from './Booking.jsx'
-import Confirmation from './Confirmation.jsx'
-import NotFound from './Errorpage.jsx'
-import SeatLayout from './SeatLayout.jsx'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Navbar from "./Navbar.jsx";
+import Footer from "./Footer.jsx";
+import Login from "./Login.jsx";
+import Carousel from "./Carousel.jsx";
+import CardComponent from "./CardComponent.jsx";
+import MovieDetails from "./MovieDetails.jsx";
+import Booking from "./Booking.jsx";
+import SeatLayout from "./SeatLayout.jsx";
+import Confirmation from "./Confirmation.jsx";
+import NotFound from "./Errorpage.jsx";
 
 function App() {
   return (
@@ -17,24 +18,40 @@ function App() {
         <Navbar />
 
         <Routes>
-          <Route path='/login' element={<Login />} />
+          {/* LOGIN */}
+          <Route path="/login" element={<Login />} />
 
-          <Route path='/' element={<>
-            <Carousel />
-            <CardComponent />
-          </>} />
+          {/* HOME PAGE */}
+          <Route
+            path="/"
+            element={
+              <>
+                <Carousel />
+                <CardComponent />
+              </>
+            }
+          />
 
-          <Route path='/MovieDetails' element={<MovieDetails />} />
-          <Route path='/Booking' element={<Booking />} />
-          <Route path='/SeatLayout' element={<SeatLayout />} />
-          <Route path='/Confirmation' element={<Confirmation />} />
-          <Route path='*' element={<NotFound />} />
+          {/* MOVIE DETAILS PAGE */}
+          <Route path="/movie/:id" element={<MovieDetails />} />
+
+          {/* BOOKING PAGE */}
+          <Route path="/booking/:id" element={<Booking />} />
+
+          {/* SEAT LAYOUT PAGE */}
+          <Route path="/seat/:id" element={<SeatLayout />} />
+
+          {/* CONFIRMATION PAGE */}
+          <Route path="/confirmation" element={<Confirmation />} />
+
+          {/* 404 PAGE */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
 
         <Footer />
       </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

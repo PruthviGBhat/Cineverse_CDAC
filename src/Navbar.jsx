@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Search, ChevronDown, Menu, X } from 'lucide-react';
 import logo from './assets/cineverse_logo1.png';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,19 +10,32 @@ export default function Navbar() {
 
   const navigate = useNavigate();
 
-  const cities = ['Yelahanka','Whitefield','Koramangala','MG Road','Indiranagar','Jayanagar','HSR Layout','Hebbal'];
+  const cities = [
+    'Yelahanka', 'Whitefield', 'Koramangala', 'MG Road',
+    'Indiranagar', 'Jayanagar', 'HSR Layout', 'Hebbal'
+  ];
+
+  // CHECK LOGIN
+  const isLoggedIn = !!localStorage.getItem("cineverse_token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("cineverse_token");
+    navigate("/login");
+  };
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-screen-2xl mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Left Section - Logo */}
+          
+          {/* Left Section - Logo + Search */}
           <div className="flex items-center gap-8">
-            <div className="flex w-50 h-10 items-center">
-              <img src={logo} alt="logo" />
-            </div>
 
-            {/* Search Bar - Hidden on Mobile */}
+            {/* ⭐ CLICKABLE LOGO (Go Home) ⭐ */}
+            <Link to="/" className="flex w-50 h-10 items-center cursor-pointer">
+              <img src={logo} alt="logo" className="h-full w-auto" />
+            </Link>
+
             <div className="hidden md:flex items-center bg-white border border-gray-300 rounded-md px-4 py-2 w-96 focus-within:border-gray-400">
               <Search size={20} className="text-gray-400 mr-2" />
               <input
@@ -35,8 +46,9 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Right Section - City & Sign In */}
+          {/* Right Section */}
           <div className="flex items-center gap-4 md:gap-6">
+
             {/* City Dropdown */}
             <div className="relative">
               <button
@@ -48,17 +60,16 @@ export default function Navbar() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <span className="hidden sm:inline">{selectedCity}</span>
-                <span className="sm:hidden">City</span>
                 <ChevronDown size={16} className={`transition-transform ${showCityDropdown ? 'rotate-180' : ''}`} />
               </button>
 
-              {/* Dropdown Menu */}
               {showCityDropdown && (
                 <>
                   <div
                     className="fixed inset-0 z-40"
                     onClick={() => setShowCityDropdown(false)}
                   ></div>
+
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                     {cities.map((city) => (
                       <button
@@ -79,12 +90,27 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* Sign In Button */}
-            <button  onClick={() => navigate('/login')} className="bg-pink-600 hover:bg-pink-700 text-white px-4 md:px-6 py-2 rounded text-sm font-medium transition-colors loginbtn">
-              Sign in
-            </button>
+            {/* LOGIN / LOGOUT SECTION */}
+            {!isLoggedIn ? (
+              <button
+                onClick={() => navigate('/login')}
+                className="bg-pink-600 hover:bg-pink-700 text-white px-4 md:px-6 py-2 rounded text-sm font-medium transition-colors loginbtn"
+              >
+                Sign in
+              </button>
+            ) : (
+              <div className="flex items-center gap-3">
+                <span className="text-gray-700 text-lg font-bold">👤</span>
+                <button
+                  onClick={handleLogout}
+                  className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded text-sm font-medium"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Toggle */}
             <button
               className="md:hidden text-gray-700"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -106,7 +132,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
     </nav>
   );
 }
